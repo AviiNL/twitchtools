@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <title>TwitchTools</title>
     <script>// noinspection JSAnnotator
-    window.$ = window.jQuery = require('jquery/dist/jquery.min');
-    require('metro-ui/build/js/metro.min');
+    window.$ = window.jQuery = require('jquery/dist/jquery');
+    const electron = require('electron');
+    require('metro-dist/js/metro');
     </script>
 
     <base href="/">
@@ -13,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body>
+<body class="metro bg-darkTeal">
 <app-root></app-root>
 </body>
 </html>

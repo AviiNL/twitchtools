@@ -20,9 +20,11 @@
       "prefix": "app",
       "styles": [
         "../node_modules/font-awesome/css/font-awesome.css",
-        "../node_modules/metro-ui/build/css/metro.css",
-        "../node_modules/metro-ui/build/css/metro-responsive.css",
-        "../node_modules/metro-ui/build/css/metro-schemes.css",
+        "../node_modules/metro-dist/css/metro.css",
+        "../node_modules/metro-dist/css/metro-icons.css",
+        "../node_modules/metro-dist/css/metro-colors.css",
+        "../node_modules/metro-dist/css/metro-responsive.css",
+        "../node_modules/metro-dist/css/metro-schemes.css",
         "styles.css"
       ],
       "scripts": [],
