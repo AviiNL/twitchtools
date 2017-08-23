@@ -17,6 +17,7 @@ export class PubsubService {
     private socket: WebSocket;
 
     constructor(private twitch: TwitchService) {
+        this.connect();
     }
 
     connect() {

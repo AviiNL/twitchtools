@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TwitchService} from '../Twitch/twitch.service';
 import {ChannelModel} from '../Twitch/channel.model';
 import {PubsubService} from '../Twitch/pubsub.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     templateUrl: './dashboard.component.html',
@@ -11,6 +12,7 @@ import {PubsubService} from '../Twitch/pubsub.service';
 export class DashboardComponent implements OnInit, OnDestroy {
 
     channel: ChannelModel;
+    bitsSubscription: Subscription;
 
     constructor(private twitch: TwitchService, private pubsub: PubsubService) {
         this.channel = new ChannelModel({});
@@ -18,16 +20,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     async ngOnInit() {
         this.channel = await this.twitch.getChannel();
-        this.pubsub.connect();
 
-        this.pubsub.bits.subscribe((data) => {
+        this.bitsSubscription = this.pubsub.bits.subscribe((data) => {
             console.log(data);
         });
 
     }
 
     ngOnDestroy(): void {
-        this.pubsub.disconnect();
+        this.bitsSubscription.unsubscribe();
     }
 
 }
