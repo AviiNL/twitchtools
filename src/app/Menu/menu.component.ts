@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         const fileMenu = [
             {name: 'New', path: '/'},
             {name: 'Open', path: ''},
-            {name: 'Logout', click: () => this.electron.getApp().relaunch()},
+            {name: 'Logout', click: () => this.electron.reset()},
             {name: 'Exit', click: () => this.electron.close()},
         ];
 

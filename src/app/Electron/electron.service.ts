@@ -35,6 +35,13 @@ export class ElectronService {
         return this.electron.remote.getCurrentWindow();
     }
 
+    reset() {
+        this.electron.remote.session.defaultSession.clearStorageData({storages: ['cookies', 'localstorage']}, () => {
+            this.electron.remote.app.relaunch();
+            this.electron.remote.app.quit();
+        });
+    }
+
     getApp() {
         return this.electron.remote.app;
     }
