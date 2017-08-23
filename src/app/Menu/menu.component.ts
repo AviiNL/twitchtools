@@ -20,9 +20,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     async ngOnInit() {
 
         const fileMenu = [
-            {name: 'New', path: '/'},
-            {name: 'Open', path: ''},
             {name: 'Logout', click: () => this.electron.reset()},
+            {name: '-'},
             {name: 'Exit', click: () => this.electron.close()},
         ];
 
@@ -41,7 +40,6 @@ export class MenuComponent implements OnInit, OnDestroy {
         }
 
         this.menuItems.push(fileMenuItem);
-        this.menuItems.push({name: 'Auth', path: '/auth'});
 
     }
 
