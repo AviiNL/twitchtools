@@ -11,6 +11,7 @@ import {TwitchService} from './Twitch/twitch.service';
 import {DashboardComponent} from './Dashboard/dashboard.component';
 import {HttpModule} from '@angular/http';
 import {ElectronService} from './Electron/electron.service';
+import {StorageService} from './Storage/storage.service';
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import {ElectronService} from './Electron/electron.service';
     ],
     providers: [
         ElectronService,
-        TwitchService
+        TwitchService,
+        StorageService
     ],
     bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 import {ElectronService} from './Electron/electron.service';
-import {ChangeDetectorRef, Component} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 
 @Component({
     selector: 'app-root',
@@ -7,7 +7,7 @@ import {ChangeDetectorRef, Component} from '@angular/core';
     styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnDestroy {
 
     maximized: boolean;
 
@@ -40,6 +40,13 @@ export class AppComponent {
         } else {
             this.electron.maximize();
         }
+    }
+
+    ngOnDestroy(): void {
+        window.removeEventListener('maximize');
+        window.removeEventListener('unmaximize');
+        window.removeEventListener('resize');
+        window.removeEventListener('enter-full-screen');
     }
 
 }

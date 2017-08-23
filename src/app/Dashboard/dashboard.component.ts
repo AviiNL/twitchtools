@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TwitchService} from '../Twitch/twitch.service';
+import {TwitchChannelModel} from '../Twitch/twitchChannel.model';
 
 @Component({
     templateUrl: './dashboard.component.html',
@@ -8,11 +9,14 @@ import {TwitchService} from '../Twitch/twitch.service';
 
 export class DashboardComponent implements OnInit {
 
+    channel: TwitchChannelModel;
+
     constructor(public twitch: TwitchService) {
+        this.channel = new TwitchChannelModel({});
     }
 
-    ngOnInit(): void {
-
+    async ngOnInit() {
+        this.channel = await this.twitch.getChannel();
     }
 
 }

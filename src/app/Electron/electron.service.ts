@@ -34,4 +34,8 @@ export class ElectronService {
     getCurrentWindow() {
         return this.electron.remote.getCurrentWindow();
     }
+
+    getApp() {
+        return this.electron.remote.app;
+    }
 }

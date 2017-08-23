@@ -22,18 +22,23 @@ export class MenuComponent implements OnInit, OnDestroy {
         const fileMenu = [
             {name: 'New', path: '/'},
             {name: 'Open', path: ''},
-            {name: 'Save', path: ''},
+            {name: 'Logout', click: () => this.electron.getApp().relaunch()},
             {name: 'Exit', click: () => this.electron.close()},
         ];
 
+
         const fileMenuItem = {name: 'N/A', children: fileMenu};
 
-        this.subscriber = this.twitch.ready.subscribe(async (value) => {
-            if (value) {
-                const user = await this.twitch.getUser();
-                fileMenuItem.name = user.display_name;
-            }
-        });
+        let user = await this.twitch.getUser();
+        fileMenuItem.name = user.display_name;
+        if (!user) {
+            this.subscriber = this.twitch.ready.subscribe(async (value) => {
+                if (value) {
+                    user = await this.twitch.getUser();
+                    fileMenuItem.name = user.display_name;
+                }
+            });
+        }
 
         this.menuItems.push(fileMenuItem);
         this.menuItems.push({name: 'Auth', path: '/auth'});
