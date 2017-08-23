@@ -1,23 +1,22 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {TwitchTokenModel} from './twitchToken.model';
 import {Headers, Http, RequestOptions} from '@angular/http';
-import {TwitchUserModel} from './twitchUser.model';
-import {TwitchChannelModel} from './twitchChannel.model';
 import {StorageService} from '../Storage/storage.service';
+import {TokenModel} from './token.model';
+import {UserModel} from './user.model';
+import {ChannelModel} from './channel.model';
+
 
 @Injectable()
 export class TwitchService {
 
-    token: TwitchTokenModel;
+    token: TokenModel;
 
     _readySource: BehaviorSubject<boolean> = new BehaviorSubject(false);
     ready = this._readySource.asObservable();
 
-    constructor(
-        private http: Http,
-        private store: StorageService
-    ) {
+    constructor(private http: Http,
+                private store: StorageService) {
 
         if (this.store.has('token')) {
             this.setToken(this.store.get('token'));
@@ -30,7 +29,7 @@ export class TwitchService {
 
         this.store.clear();
 
-        this.token = new TwitchTokenModel(token);
+        this.token = new TokenModel(token);
         this.store.set('token', token);
 
         this._readySource.next(true);
@@ -39,16 +38,16 @@ export class TwitchService {
 
 
     /**
-     * @returns {TwitchUserModel}
+     * @returns {UserModel}
      */
     async getUser() {
         const response = await this.fetch('user', true);
-        return new TwitchUserModel(response);
+        return new UserModel(response);
     }
 
     async getChannel() {
         const response = await this.fetch('channel');
-        return new TwitchChannelModel(response);
+        return new ChannelModel(response);
     }
 
     async fetch(what: string, force: boolean = false) {
@@ -65,7 +64,10 @@ export class TwitchService {
             'Authorization': `OAuth ${this.token.access_token}`
         });
 
-        const response = await this.http.get(`https://api.twitch.tv/kraken/${what}`, new RequestOptions({headers: headers})).toPromise();
+        const response = await this.http.get(
+            `https://api.twitch.tv/kraken/${what}`,
+            new RequestOptions({headers: headers})
+        ).toPromise();
 
         this.store.set(what, response.json());
         return response.json();

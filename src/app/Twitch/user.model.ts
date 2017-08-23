@@ -1,4 +1,4 @@
-export class TwitchUserModel {
+export class UserModel {
     id: number;
     name: string;
     display_name: string;

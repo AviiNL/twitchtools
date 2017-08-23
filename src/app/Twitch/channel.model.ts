@@ -1,4 +1,4 @@
-export class TwitchChannelModel {
+export class ChannelModel {
     mature: boolean;
     status: string;
     broadcaster_language: string;

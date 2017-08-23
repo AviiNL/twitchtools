@@ -1,4 +1,4 @@
-export class TwitchTokenModel {
+export class TokenModel {
     access_token: string;
     refresh_token: string;
     scope: Array<string>;
