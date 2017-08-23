@@ -6,7 +6,6 @@ import {TokenModel} from './token.model';
 import {UserModel} from './user.model';
 import {ChannelModel} from './channel.model';
 
-
 @Injectable()
 export class TwitchService {
 
@@ -36,10 +35,6 @@ export class TwitchService {
         this._readySource.complete();
     }
 
-
-    /**
-     * @returns {UserModel}
-     */
     async getUser() {
         const response = await this.fetch('user', true);
         return new UserModel(response);

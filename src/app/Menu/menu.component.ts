@@ -20,13 +20,18 @@ export class MenuComponent implements OnInit, OnDestroy {
     async ngOnInit() {
 
         const fileMenu = [
-            {name: 'Logout', click: () => this.electron.reset()},
+            {name: 'Dashboard', path: '/app'},
             {name: '-'},
+            {name: 'Logout', click: () => this.electron.reset()},
             {name: 'Exit', click: () => this.electron.close()},
         ];
 
+        const editMenu = [
+            {name: 'Settings', path: '/app/settings'},
+        ];
 
         const fileMenuItem = {name: 'N/A', children: fileMenu};
+        const editMenuItem = {name: 'Edit', children: editMenu};
 
         let user = await this.twitch.getUser();
         fileMenuItem.name = user.display_name;
@@ -40,6 +45,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         }
 
         this.menuItems.push(fileMenuItem);
+        this.menuItems.push(editMenuItem);
 
     }
 

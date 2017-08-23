@@ -31,12 +31,20 @@ app.on('ready', () => {
             'user_read',
             'user_blocks_edit',
             'user_blocks_read',
+            'user_blocks_edit',
+            'user_subscriptions',
             'channel_read',
             'channel_editor',
             'channel_commercial',
             'channel_subscriptions',
             'channel_check_subscription',
-            'chat_login'
+            'channel_feed_edit',
+            'channel_feed_read',
+            'collections_edit',
+            'communities_edit',
+            'communities_moderate',
+            'chat_login',
+            'viewing_activity_read'
         ].join(' ')
     })
         .then(token => {

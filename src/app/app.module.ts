@@ -12,24 +12,28 @@ import {DashboardComponent} from './Dashboard/dashboard.component';
 import {HttpModule} from '@angular/http';
 import {ElectronService} from './Electron/electron.service';
 import {StorageService} from './Storage/storage.service';
+import {PubsubService} from './Twitch/pubsub.service';
+import {SettingsComponent} from './Settings/settings.component';
 
 @NgModule({
     imports: [
         BrowserModule,
         HttpModule,
-        RouterModule.forRoot(appRoutes, {enableTracing: true})
+        RouterModule.forRoot(appRoutes, {enableTracing: false})
     ],
     declarations: [
         AppComponent,
         MenuComponent,
         AuthComponent,
         DashboardComponent,
+        SettingsComponent,
         MenuItemComponent
     ],
     providers: [
         ElectronService,
         TwitchService,
-        StorageService
+        StorageService,
+        PubsubService
     ],
     bootstrap: [AppComponent]
 })
