@@ -5,13 +5,16 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable()
 export class PubsubService {
 
-    _bitsSource: BehaviorSubject<any> = new BehaviorSubject(null);
+    bitsData: Array<any> = [];
+    _bitsSource: BehaviorSubject<any> = new BehaviorSubject(this.bitsData);
     bits = this._bitsSource.asObservable();
 
-    _subscribeSource: BehaviorSubject<any> = new BehaviorSubject(null);
+    subscribeData: Array<any> = [];
+    _subscribeSource: BehaviorSubject<any> = new BehaviorSubject(this.subscribeData);
     subscribe = this._subscribeSource.asObservable();
 
-    _commerceSource: BehaviorSubject<any> = new BehaviorSubject(null);
+    commerceData: Array<any> = [];
+    _commerceSource: BehaviorSubject<any> = new BehaviorSubject(this.commerceData);
     commerce = this._commerceSource.asObservable();
 
     private socket: WebSocket;
@@ -118,13 +121,16 @@ export class PubsubService {
 
         switch (data.topic.split('.')[0]) {
             case 'channel-bits-events-v1':
-                this._bitsSource.next(message);
+                this.bitsData.push(message);
+                this._bitsSource.next(this.bitsData);
                 break;
             case 'channel-subscribe-events-v1':
-                this._subscribeSource.next(message);
+                this.subscribeData.push(message);
+                this._subscribeSource.next(this.subscribeData);
                 break;
             case 'channel-commerce-events-v1':
-                this._commerceSource.next(message);
+                this.commerceData.push(message);
+                this._commerceSource.next(this.commerceData);
                 break;
         }
 
