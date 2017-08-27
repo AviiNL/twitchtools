@@ -3,6 +3,7 @@ import {TwitchService} from '../Twitch/twitch.service';
 import {ChannelModel} from '../Twitch/channel.model';
 import {PubsubService} from '../Twitch/pubsub.service';
 import {Subscription} from 'rxjs/Subscription';
+import {ChatService} from '../Twitch/chat.service';
 
 @Component({
     templateUrl: './dashboard.component.html',
@@ -13,8 +14,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     channel: ChannelModel;
     bitsSubscription: Subscription;
+    chatSubscribe: Subscription;
 
-    constructor(private twitch: TwitchService, private pubsub: PubsubService) {
+    constructor(
+        private twitch: TwitchService,
+        private pubsub: PubsubService,
+        private chat: ChatService
+    ) {
         this.channel = new ChannelModel({});
     }
 
@@ -23,6 +29,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
         this.bitsSubscription = this.pubsub.bits.subscribe((data) => {
             console.log(data);
+        });
+
+        this.chatSubscribe = this.chat.messages.subscribe((log) => {
+            console.log(log);
         });
 
     }

@@ -14,6 +14,7 @@ import {ElectronService} from './Electron/electron.service';
 import {StorageService} from './Storage/storage.service';
 import {PubsubService} from './Twitch/pubsub.service';
 import {SettingsComponent} from './Settings/settings.component';
+import {ChatService} from './Twitch/chat.service';
 
 @NgModule({
     imports: [
@@ -33,7 +34,8 @@ import {SettingsComponent} from './Settings/settings.component';
         ElectronService,
         TwitchService,
         StorageService,
-        PubsubService
+        PubsubService,
+        ChatService
     ],
     bootstrap: [AppComponent]
 })
