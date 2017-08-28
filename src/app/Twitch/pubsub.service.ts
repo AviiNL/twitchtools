@@ -17,13 +17,13 @@ export class PubsubService {
     _commerceSource: BehaviorSubject<any> = new BehaviorSubject(this.commerceData);
     commerce = this._commerceSource.asObservable();
 
+    followersData: Array<any> = [];
+    _followersSource: BehaviorSubject<any> = new BehaviorSubject(this.followersData);
+    followers = this._followersSource.asObservable();
+
     private socket: WebSocket;
 
     constructor(private twitch: TwitchService) {
-        this.connect();
-    }
-
-    connect() {
         if (this.socket && this.socket.readyState === this.socket.OPEN) {
             console.warn('Socket already connected');
             return;
@@ -82,7 +82,7 @@ export class PubsubService {
     reconnect() {
         this.disconnect();
         this.socket.onclose = () => {
-            this.connect();
+            this.constructor(this.twitch);
         };
     }
 

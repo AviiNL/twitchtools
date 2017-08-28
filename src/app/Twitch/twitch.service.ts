@@ -37,14 +37,37 @@ export class TwitchService {
         this._readySource.complete();
     }
 
-    async getUser() {
-        const response = await this.fetch('user', true);
+    async getUser(force: boolean = true) {
+        const response = await this.fetch('user', force);
         return new UserModel(response);
     }
 
-    async getChannel() {
-        const response = await this.fetch('channel');
+    async getChannel(force: boolean = false) {
+        const response = await this.fetch('channel', force);
         return new ChannelModel(response);
+    }
+
+    async getFollows() {
+        const channel = await this.getChannel();
+        return await this.fetchAll(`channels/${channel._id}/follows`);
+    }
+
+    async fetchAll(what: string, existing: Array<any> = [], cursor: string = '') {
+        let path = what;
+        if (cursor.length > 0) {
+            path += `?cursor=${cursor}`;
+        }
+
+        const data = await this.fetch(path, true);
+        const dataType = what.split('/').pop();
+
+        existing = existing.concat(data[dataType]);
+
+        if (data.hasOwnProperty('_cursor')) {
+            return await this.fetchAll(what, existing, data._cursor);
+        }
+
+        return existing;
     }
 
     async fetch(what: string, force: boolean = false) {

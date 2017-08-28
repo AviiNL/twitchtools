@@ -35,6 +35,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
             console.log(log);
         });
 
+        console.log(await this.twitch.getFollows());
+
     }
 
     ngOnDestroy(): void {
