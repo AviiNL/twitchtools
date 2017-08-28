@@ -53,9 +53,9 @@ export class TwitchService {
     }
 
     async fetchAll(what: string, existing: Array<any> = [], cursor: string = '') {
-        let path = what;
+        let path = `${what}?limit=100`;
         if (cursor.length > 0) {
-            path += `?cursor=${cursor}`;
+            path += `&cursor=${cursor}`;
         }
 
         const data = await this.fetch(path, true);
